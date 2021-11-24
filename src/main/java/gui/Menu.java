@@ -12,6 +12,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.border.TitledBorder;
+
+import util.GetLocalTime;
+
 import java.awt.Color;
 import javax.swing.border.EtchedBorder;
 import javax.swing.JButton;
@@ -24,6 +27,7 @@ import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import javax.swing.Action;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.JSeparator;
@@ -41,6 +45,7 @@ public class Menu extends JFrame {
 			public void run() {
 				try {
 					Menu frame = new Menu();
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -65,17 +70,17 @@ public class Menu extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setBounds(0, 36, 117, 26);
-		panel.add(lblNewLabel);
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		JLabel lblDate = new JLabel("New label");
+		lblDate.setBounds(0, 36, 117, 26);
+		panel.add(lblDate);
+		lblDate.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDate.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		
-		JLabel lblNewLabel_1 = new JLabel("New label");
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblNewLabel_1.setBounds(0, 11, 117, 26);
-		panel.add(lblNewLabel_1);
+		JLabel lblTime = new JLabel("New label");
+		lblTime.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTime.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		lblTime.setBounds(0, 11, 117, 26);
+		panel.add(lblTime);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setForeground(Color.BLACK);
@@ -84,18 +89,21 @@ public class Menu extends JFrame {
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JButton btnNewButton = new JButton("");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnQuanLyKhoHang = new JButton("");
+		btnQuanLyKhoHang.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+//				QuanLyKhoHang qlkh = new QuanLyKhoHang();
+//				dispose();
+//				qlkh.main(null);
 			}
 		});
-		btnNewButton.setAction(action);
-		btnNewButton.setIcon(new ImageIcon("F:\\Hoc ki 3\\Java Phan Tan\\Project-JavaPT\\qlbdtt_artifact\\data\\icon\\equip.png"));
-		btnNewButton.setBounds(10, 21, 99, 66);
-		panel_1.add(btnNewButton);
+		btnQuanLyKhoHang.setAction(action);
+		btnQuanLyKhoHang.setIcon(new ImageIcon("F:\\Hoc ki 3\\Java Phan Tan\\Project-JavaPT\\qlbdtt_artifact\\data\\icon\\equip.png"));
+		btnQuanLyKhoHang.setBounds(10, 21, 99, 66);
+		panel_1.add(btnQuanLyKhoHang);
 		
 		JLabel lblNewLabel_2 = new JLabel("Q.l\u00FD Kho h\u00E0ng");
-		lblNewLabel_2.setLabelFor(btnNewButton);
+		lblNewLabel_2.setLabelFor(btnQuanLyKhoHang);
 		lblNewLabel_2.setBackground(new Color(46, 139, 87));
 		lblNewLabel_2.setForeground(new Color(0, 128, 128));
 		lblNewLabel_2.setFont(new Font("Times New Roman", Font.BOLD, 16));
@@ -103,14 +111,17 @@ public class Menu extends JFrame {
 		lblNewLabel_2.setBounds(10, 87, 99, 20);
 		panel_1.add(lblNewLabel_2);
 		
-		JButton btnNewButton_2 = new JButton("");
-		btnNewButton_2.addActionListener(new ActionListener() {
+		JButton btnQuanLyDonMua = new JButton("");
+		btnQuanLyDonMua.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				QuanLyDonMua qldm = new QuanLyDonMua();
+				dispose();
+				qldm.main(null);
 			}
 		});
-		btnNewButton_2.setIcon(new ImageIcon("F:\\Hoc ki 3\\Java Phan Tan\\Project-JavaPT\\qlbdtt_artifact\\data\\icon\\order.png"));
-		btnNewButton_2.setBounds(119, 21, 99, 66);
-		panel_1.add(btnNewButton_2);
+		btnQuanLyDonMua.setIcon(new ImageIcon("F:\\Hoc ki 3\\Java Phan Tan\\Project-JavaPT\\qlbdtt_artifact\\data\\icon\\order.png"));
+		btnQuanLyDonMua.setBounds(119, 21, 99, 66);
+		panel_1.add(btnQuanLyDonMua);
 		
 		JLabel lblNewLabel_2_1 = new JLabel("Q.l\u00FD \u0110\u01A1n mua");
 		lblNewLabel_2_1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -120,14 +131,17 @@ public class Menu extends JFrame {
 		lblNewLabel_2_1.setBounds(119, 87, 99, 20);
 		panel_1.add(lblNewLabel_2_1);
 		
-		JButton btnNewButton_4 = new JButton("");
-		btnNewButton_4.addActionListener(new ActionListener() {
+		JButton btnThongKe = new JButton("");
+		btnThongKe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ThongKe tk = new ThongKe();
+				dispose();
+				tk.main(null);
 			}
 		});
-		btnNewButton_4.setIcon(new ImageIcon("F:\\Hoc ki 3\\Java Phan Tan\\Project-JavaPT\\qlbdtt_artifact\\data\\icon\\statistic.png"));
-		btnNewButton_4.setBounds(337, 21, 99, 66);
-		panel_1.add(btnNewButton_4);
+		btnThongKe.setIcon(new ImageIcon("F:\\Hoc ki 3\\Java Phan Tan\\Project-JavaPT\\qlbdtt_artifact\\data\\icon\\statistic.png"));
+		btnThongKe.setBounds(337, 21, 99, 66);
+		panel_1.add(btnThongKe);
 		
 		JLabel lblNewLabel_2_3 = new JLabel("Th\u1ED1ng k\u00EA");
 		lblNewLabel_2_3.setHorizontalAlignment(SwingConstants.CENTER);
@@ -137,10 +151,10 @@ public class Menu extends JFrame {
 		lblNewLabel_2_3.setBounds(337, 87, 99, 20);
 		panel_1.add(lblNewLabel_2_3);
 		
-		JButton btnNewButton_5 = new JButton("");
-		btnNewButton_5.setIcon(new ImageIcon("F:\\Hoc ki 3\\Java Phan Tan\\Project-JavaPT\\qlbdtt_artifact\\data\\icon\\option.png"));
-		btnNewButton_5.setBounds(707, 21, 99, 66);
-		panel_1.add(btnNewButton_5);
+		JButton btnTuyChon = new JButton("");
+		btnTuyChon.setIcon(new ImageIcon("F:\\Hoc ki 3\\Java Phan Tan\\Project-JavaPT\\qlbdtt_artifact\\data\\icon\\option.png"));
+		btnTuyChon.setBounds(707, 21, 99, 66);
+		panel_1.add(btnTuyChon);
 		
 		JLabel lblNewLabel_2_4 = new JLabel("T\u00F9y ch\u1ECDn");
 		lblNewLabel_2_4.setHorizontalAlignment(SwingConstants.CENTER);
@@ -150,10 +164,10 @@ public class Menu extends JFrame {
 		lblNewLabel_2_4.setBounds(707, 87, 99, 20);
 		panel_1.add(lblNewLabel_2_4);
 		
-		JButton btnNewButton_6 = new JButton("");
-		btnNewButton_6.setIcon(new ImageIcon("F:\\Hoc ki 3\\Java Phan Tan\\Project-JavaPT\\qlbdtt_artifact\\data\\icon\\chat.png"));
-		btnNewButton_6.setBounds(598, 21, 99, 66);
-		panel_1.add(btnNewButton_6);
+		JButton btnBoxChatOnline = new JButton("");
+		btnBoxChatOnline.setIcon(new ImageIcon("F:\\Hoc ki 3\\Java Phan Tan\\Project-JavaPT\\qlbdtt_artifact\\data\\icon\\chat.png"));
+		btnBoxChatOnline.setBounds(598, 21, 99, 66);
+		panel_1.add(btnBoxChatOnline);
 		
 		JLabel lblNewLabel_2_5 = new JLabel("Boxchat online");
 		lblNewLabel_2_5.setHorizontalAlignment(SwingConstants.CENTER);
@@ -163,14 +177,17 @@ public class Menu extends JFrame {
 		lblNewLabel_2_5.setBounds(598, 87, 99, 20);
 		panel_1.add(lblNewLabel_2_5);
 		
-		JButton btnNewButton_7 = new JButton("");
-		btnNewButton_7.addActionListener(new ActionListener() {
+		JButton btnQuanLyVanChuyen = new JButton("");
+		btnQuanLyVanChuyen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+//				QuanLyVangChuyen qlvc = new QuanLyVanChuyen();
+//				dispose();
+//				qlvc.main(null);
 			}
 		});
-		btnNewButton_7.setIcon(new ImageIcon("F:\\Hoc ki 3\\Java Phan Tan\\Project-JavaPT\\qlbdtt_artifact\\data\\icon\\transport.png"));
-		btnNewButton_7.setBounds(228, 21, 99, 66);
-		panel_1.add(btnNewButton_7);
+		btnQuanLyVanChuyen.setIcon(new ImageIcon("F:\\Hoc ki 3\\Java Phan Tan\\Project-JavaPT\\qlbdtt_artifact\\data\\icon\\transport.png"));
+		btnQuanLyVanChuyen.setBounds(228, 21, 99, 66);
+		panel_1.add(btnQuanLyVanChuyen);
 		
 		JLabel lblNewLabel_2_6 = new JLabel("Q.l\u00FD V.chuy\u1EC3n");
 		lblNewLabel_2_6.setHorizontalAlignment(SwingConstants.CENTER);
@@ -215,11 +232,22 @@ public class Menu extends JFrame {
 		lblNewLabel_6_1.setBounds(10, 44, 93, 20);
 		panel_4.add(lblNewLabel_6_1);
 		
-		JButton btnNewButton_1 = new JButton("link");
-		btnNewButton_1.setBackground(Color.YELLOW);
-		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
-		btnNewButton_1.setBounds(102, 43, 93, 23);
-		panel_4.add(btnNewButton_1);
+		JButton btnHelp = new JButton("link");
+		btnHelp.setAction(action);
+		btnHelp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String url = "https://www.google.com";
+		        try {
+					java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnHelp.setBackground(Color.YELLOW);
+		btnHelp.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
+		btnHelp.setBounds(102, 43, 93, 23);
+		panel_4.add(btnHelp);
 		
 		JLabel lblNewLabel_6_2 = new JLabel("- N\u1EBFu b\u1EA1n g\u1EB7p l\u1ED7i ho\u1EB7c mu\u1ED1n li\u00EAn h\u1EC7, g\u00F3p \u00FD h\u00E3y");
 		lblNewLabel_6_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -231,11 +259,21 @@ public class Menu extends JFrame {
 		lblNewLabel_6_2_1.setBounds(10, 91, 157, 20);
 		panel_4.add(lblNewLabel_6_2_1);
 		
-		JButton btnNewButton_1_1 = new JButton("link");
-		btnNewButton_1_1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
-		btnNewButton_1_1.setBackground(Color.YELLOW);
-		btnNewButton_1_1.setBounds(167, 90, 86, 23);
-		panel_4.add(btnNewButton_1_1);
+		JButton btnReport = new JButton("link");
+		btnReport.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String url = "https://www.google.com";
+		        try {
+					java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnReport.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
+		btnReport.setBackground(Color.YELLOW);
+		btnReport.setBounds(167, 90, 86, 23);
+		panel_4.add(btnReport);
 		
 		JPanel panel_4_1 = new JPanel();
 		panel_4_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "V\u1EC1 ph\u1EA7n m\u1EC1m:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 128, 128)));
@@ -311,6 +349,10 @@ public class Menu extends JFrame {
 		lblNewLabel_5_3_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_5_3_2.setBounds(147, 69, 84, 14);
 		panel_3.add(lblNewLabel_5_3_2);
+		
+		GetLocalTime getLocalTime = new GetLocalTime(lblDate, lblTime);
+		getLocalTime.showTime();
+		getLocalTime.showDate();
 	}
 	private class SwingAction extends AbstractAction {
 		public SwingAction() {

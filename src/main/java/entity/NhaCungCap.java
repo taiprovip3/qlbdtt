@@ -18,6 +18,7 @@ public class NhaCungCap {
 	private String quocGia;
 	private String soDienThoai;
 	
+	
 	@OneToMany(mappedBy = "nhaCungCap")
 	private List<SanPham> danhSachSanPham;
 
