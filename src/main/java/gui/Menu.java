@@ -92,9 +92,9 @@ public class Menu extends JFrame {
 		JButton btnQuanLyKhoHang = new JButton("");
 		btnQuanLyKhoHang.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				QuanLyKhoHang qlkh = new QuanLyKhoHang();
-//				dispose();
-//				qlkh.main(null);
+				QuanLyKhoHang qlkh = new QuanLyKhoHang();
+				dispose();
+				qlkh.main(null);
 			}
 		});
 		btnQuanLyKhoHang.setAction(action);
