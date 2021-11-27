@@ -8,8 +8,17 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.query.NativeQuery;
+
+import entity.NhaCungCap;
+import entity.PhanLoai;
+import entity.SanPham;
 import javassist.bytecode.analysis.Frame;
 import util.GetLocalTime;
+import util.HibernateUtil;
 
 import java.awt.Color;
 import javax.swing.border.EtchedBorder;
@@ -27,6 +36,9 @@ import javax.swing.JCheckBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JSeparator;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class QuanLyKhoHang_them extends JFrame {
@@ -39,6 +51,7 @@ public class QuanLyKhoHang_them extends JFrame {
 	private JLabel lblMaSanPham;
 	private final JTextPane tpOutputMaSP;
 	private JTextField txtDes;
+	private JComboBox<String> cbSup, cbCate; 
 
 	/**
 	 * Launch the application.
@@ -208,6 +221,33 @@ public class QuanLyKhoHang_them extends JFrame {
 				if(kiemTraNhapLieu())
 				{
 					System.out.println("Mã SP ok");
+					SessionFactory sessionFactory = HibernateUtil.getInstance().getSessionFactory();
+					Session session = sessionFactory.getCurrentSession();
+					
+					Transaction tr = session.getTransaction(); 
+					try {
+						tr.begin();
+							String maSP = tpOutputMaSP.getText();
+							NhaCungCap getNCC = new NhaCungCap();
+							getNCC = session.createNativeQuery("SELECT * FROM NhaCungCap WHERE  maSanPham",NhaCungCap.class).getSingleResult();
+							System.out.println(getNCC);
+							
+							
+//							String tenSP = txtName.getText();
+//							int soLuong = Integer.parseInt(txtAmount.getText());
+//							Float donGia = Float.parseFloat(txtPrice.getText());
+//							List<String> lsTheThao = Arrays.asList("Bóng đá", "Bóng chuyền");
+//							String moTa = txtDes.getText();
+//							String maNcc = cbSup.getSelectedItem().toString();
+//							String maPl = cbCate.getSelectedItem().toString();
+//							NhaCungCap ncc = new NhaCungCap(maNcc, "ten doi tac", "quoc gia", "0338188506", Arrays.asList("Gậy bóng chày", "Gậy cầu lông", "Banh tenis", "Bóng da", "Đồ bơm bóng"));
+//							PhanLoai pl = new PhanLoai(maPl, "ten Phan Loai", "mo ta");
+//							SanPham sp = new SanPham(maSP, tenSP, soLuong, donGia, lsTheThao, moTa, ncc, pl);
+//							session.save(sp);
+						tr.commit();
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
 				}else 
 					System.out.println("Dữ liệu nhập vào có chỗ sai định dạng hoặc bỏ trống");
 			}
@@ -301,13 +341,29 @@ public class QuanLyKhoHang_them extends JFrame {
 		String tenSP = txtName.getText();
 		String soLuong = txtAmount.getText();
 		String donGia = txtPrice.getText();
+		String moTa = txtDes.getText();
+		
 //		String 
 		if(!maSP.matches("(SP|sp)[0-9]{1,}"))
 		{
 			JOptionPane.showMessageDialog(contentPane, "Mã ko đc rỗng & theo mẫu: 'SP99'");
 			return false;
 		}
-		
+		if(tenSP.length() <= 0)
+		{
+			JOptionPane.showInternalMessageDialog(contentPane, "Tên sản phẩm ko đc rỗng");
+			return false;
+		}
+		if(donGia.length() <= 0 || !donGia.matches("[0-9]{1,}"))
+		{
+			JOptionPane.showMessageDialog(contentPane, "Đơn giá ko đc rỗng & chỉ toàn là con số!");
+			return false; 
+		}
+		if(moTa.length() <= 0)
+		{
+			JOptionPane.showMessageDialog(contentPane, "Vui lòng nhập mô tả cho SP");
+			return false;
+		}
 		return true;
 	}
 }
