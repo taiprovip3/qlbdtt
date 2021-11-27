@@ -23,6 +23,7 @@ public class SanPham {
 	private String tenSanPham;
 	private int soLuongTon;
 	private float donGia;
+	
 	@ElementCollection
 	@CollectionTable(name = "DanhSachMonTheThao", joinColumns = @JoinColumn(name="maSanPham"))
 	@Column(nullable = false)
@@ -34,6 +35,12 @@ public class SanPham {
 	@ManyToOne
 	@JoinColumn(name="maPhanLoai")
 	private PhanLoai phanLoai;
+	@ManyToOne
+	@JoinColumn(name="maHoaDon")
+	private HoaDon hoaDon;
+	
+
+
 	public String getMaSanPham() {
 		return maSanPham;
 	}
@@ -82,11 +89,17 @@ public class SanPham {
 	public void setPhanLoai(PhanLoai phanLoai) {
 		this.phanLoai = phanLoai;
 	}
+	public HoaDon getHoaDon() {
+		return hoaDon;
+	}
+	public void setHoaDon(HoaDon hoaDon) {
+		this.hoaDon = hoaDon;
+	}
 	public SanPham() {
 		super();
 	}
 	public SanPham(String maSanPham, String tenSanPham, int soLuongTon, float donGia, List<String> chuyenTheThao,
-			String moTa, NhaCungCap nhaCungCap, PhanLoai phanLoai) {
+			String moTa) {
 		super();
 		this.maSanPham = maSanPham;
 		this.tenSanPham = tenSanPham;
@@ -94,14 +107,6 @@ public class SanPham {
 		this.donGia = donGia;
 		this.chuyenTheThao = chuyenTheThao;
 		this.moTa = moTa;
-		this.nhaCungCap = nhaCungCap;
-		this.phanLoai = phanLoai;
-	}
-	@Override
-	public String toString() {
-		return "SanPham [maSanPham=" + maSanPham + ", tenSanPham=" + tenSanPham + ", soLuongTon=" + soLuongTon
-				+ ", donGia=" + donGia + ", chuyenTheThao=" + chuyenTheThao + ", moTa=" + moTa + ", nhaCungCap="
-				+ nhaCungCap + ", phanLoai=" + phanLoai + "]";
 	}
 	@Override
 	public int hashCode() {
@@ -126,6 +131,11 @@ public class SanPham {
 			return false;
 		return true;
 	}
-	
+	@Override
+	public String toString() {
+		return "SanPham [maSanPham=" + maSanPham + ", tenSanPham=" + tenSanPham + ", soLuongTon=" + soLuongTon
+				+ ", donGia=" + donGia + ", chuyenTheThao=" + chuyenTheThao + ", moTa=" + moTa + ", nhaCungCap="
+				+ nhaCungCap + ", phanLoai=" + phanLoai + "]";
+	}
 	
 }

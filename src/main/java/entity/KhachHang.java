@@ -77,15 +77,15 @@ public class KhachHang {
 		super();
 	}
 
-	public KhachHang(String maKhachHang, String hoTen, String diaChi, String soDienThoai, String loaiKhachHang,
-			List<HoaDon> danhSachHoaDon) {
+	
+
+	public KhachHang(String maKhachHang, String hoTen, String diaChi, String soDienThoai, String loaiKhachHang) {
 		super();
 		this.maKhachHang = maKhachHang;
 		this.hoTen = hoTen;
 		this.diaChi = diaChi;
 		this.soDienThoai = soDienThoai;
 		this.loaiKhachHang = loaiKhachHang;
-		this.danhSachHoaDon = danhSachHoaDon;
 	}
 
 	@Override

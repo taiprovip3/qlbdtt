@@ -6,11 +6,13 @@ package entity;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 @Entity
 public class HoaDon {
 	@Id
@@ -22,9 +24,14 @@ public class HoaDon {
 	@ManyToOne
 	@JoinColumn(name="maKhachHang")
 	private KhachHang khachHang;
+	
 	@ManyToOne
 	@JoinColumn(name="maNhanVien")
 	private NhanVien nhanVien;
+	
+	@OneToMany(mappedBy = "hoaDon")
+	private List<SanPham> danhSachSanPham;
+	
 	public String getMaHoaDon() {
 		return maHoaDon;
 	}
@@ -64,15 +71,12 @@ public class HoaDon {
 	public HoaDon() {
 		super();
 	}
-	public HoaDon(String maHoaDon, Timestamp ngayLapHoaDon, float tongTien, String trangThai, KhachHang khachHang,
-			NhanVien nhanVien) {
+	public HoaDon(String maHoaDon, Timestamp ngayLapHoaDon, float tongTien, String trangThai) {
 		super();
 		this.maHoaDon = maHoaDon;
 		this.ngayLapHoaDon = ngayLapHoaDon;
 		this.tongTien = tongTien;
 		this.trangThai = trangThai;
-		this.khachHang = khachHang;
-		this.nhanVien = nhanVien;
 	}
 	@Override
 	public String toString() {

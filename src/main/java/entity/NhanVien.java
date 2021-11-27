@@ -92,8 +92,9 @@ public class NhanVien {
 		super();
 	}
 
+
 	public NhanVien(String maNhanVien, String tenNhanVien, String soDienThoai, String tenDangNhap, String matKhau,
-			int thoiGianSuDung, boolean quyenLenh, List<HoaDon> danhSachHoaDon) {
+			int thoiGianSuDung, boolean quyenLenh) {
 		super();
 		this.maNhanVien = maNhanVien;
 		this.tenNhanVien = tenNhanVien;
@@ -102,7 +103,6 @@ public class NhanVien {
 		this.matKhau = matKhau;
 		this.thoiGianSuDung = thoiGianSuDung;
 		this.quyenLenh = quyenLenh;
-		this.danhSachHoaDon = danhSachHoaDon;
 	}
 
 	@Override
