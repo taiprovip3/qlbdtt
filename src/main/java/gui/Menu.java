@@ -29,6 +29,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.Action;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.UnknownHostException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -102,7 +105,7 @@ public class Menu extends JFrame {
 			}
 		});
 		btnQuanLyKhoHang.setAction(action);
-		btnQuanLyKhoHang.setIcon(new ImageIcon("F:\\Hoc ki 3\\Java Phan Tan\\Project-JavaPT\\qlbdtt_artifact\\data\\icon\\equip.png"));
+		btnQuanLyKhoHang.setIcon(new ImageIcon("F:\\Hoc ki 3\\Java Phan Tan\\Project-JavaPT\\qlbdtt_server\\data\\icon\\equip.png"));
 		btnQuanLyKhoHang.setBounds(10, 21, 99, 66);
 		panel_1.add(btnQuanLyKhoHang);
 		
@@ -123,7 +126,7 @@ public class Menu extends JFrame {
 				qldm.main(null);
 			}
 		});
-		btnQuanLyDonMua.setIcon(new ImageIcon("F:\\Hoc ki 3\\Java Phan Tan\\Project-JavaPT\\qlbdtt_artifact\\data\\icon\\order.png"));
+		btnQuanLyDonMua.setIcon(new ImageIcon("F:\\Hoc ki 3\\Java Phan Tan\\Project-JavaPT\\qlbdtt_server\\data\\icon\\order.png"));
 		btnQuanLyDonMua.setBounds(119, 21, 99, 66);
 		panel_1.add(btnQuanLyDonMua);
 		
@@ -143,7 +146,7 @@ public class Menu extends JFrame {
 				tk.main(null);
 			}
 		});
-		btnThongKe.setIcon(new ImageIcon("F:\\Hoc ki 3\\Java Phan Tan\\Project-JavaPT\\qlbdtt_artifact\\data\\icon\\statistic.png"));
+		btnThongKe.setIcon(new ImageIcon("F:\\Hoc ki 3\\Java Phan Tan\\Project-JavaPT\\qlbdtt_server\\data\\icon\\statistic.png"));
 		btnThongKe.setBounds(337, 21, 99, 66);
 		panel_1.add(btnThongKe);
 		
@@ -156,7 +159,7 @@ public class Menu extends JFrame {
 		panel_1.add(lblNewLabel_2_3);
 		
 		JButton btnTuyChon = new JButton("");
-		btnTuyChon.setIcon(new ImageIcon("F:\\Hoc ki 3\\Java Phan Tan\\Project-JavaPT\\qlbdtt_artifact\\data\\icon\\option.png"));
+		btnTuyChon.setIcon(new ImageIcon("F:\\Hoc ki 3\\Java Phan Tan\\Project-JavaPT\\qlbdtt_server\\data\\icon\\option.png"));
 		btnTuyChon.setBounds(707, 21, 99, 66);
 		panel_1.add(btnTuyChon);
 		
@@ -171,12 +174,23 @@ public class Menu extends JFrame {
 		JButton btnBoxChatOnline = new JButton("");
 		btnBoxChatOnline.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BoxChatServer boxChatServer = new BoxChatServer();
-				boxChatServer.main(null);;
-				dispose();
+				BoxChatServer boxChatServer;
+				try {
+					boxChatServer = new BoxChatServer();
+					boxChatServer.main(null);;
+					dispose();
+				} catch (MalformedURLException e1) {
+					e1.printStackTrace();
+				} catch (RemoteException e1) {
+					e1.printStackTrace();
+				} catch (UnknownHostException e1) {
+					e1.printStackTrace();
+				} catch (NotBoundException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
-		btnBoxChatOnline.setIcon(new ImageIcon("F:\\Hoc ki 3\\Java Phan Tan\\Project-JavaPT\\qlbdtt_artifact\\data\\icon\\chat.png"));
+		btnBoxChatOnline.setIcon(new ImageIcon("F:\\Hoc ki 3\\Java Phan Tan\\Project-JavaPT\\qlbdtt_server\\data\\icon\\chat.png"));
 		btnBoxChatOnline.setBounds(598, 21, 99, 66);
 		panel_1.add(btnBoxChatOnline);
 		
@@ -196,7 +210,7 @@ public class Menu extends JFrame {
 //				qlvc.main(null);
 			}
 		});
-		btnQuanLyVanChuyen.setIcon(new ImageIcon("F:\\Hoc ki 3\\Java Phan Tan\\Project-JavaPT\\qlbdtt_artifact\\data\\icon\\transport.png"));
+		btnQuanLyVanChuyen.setIcon(new ImageIcon("F:\\Hoc ki 3\\Java Phan Tan\\Project-JavaPT\\qlbdtt_server\\data\\icon\\transport.png"));
 		btnQuanLyVanChuyen.setBounds(228, 21, 99, 66);
 		panel_1.add(btnQuanLyVanChuyen);
 		
@@ -243,7 +257,7 @@ public class Menu extends JFrame {
 		lblNewLabel_6_1.setBounds(10, 44, 93, 20);
 		panel_4.add(lblNewLabel_6_1);
 		
-		JButton btnHelp = new JButton("link");
+		JButton btnHelp = new JButton("link.");
 		btnHelp.setAction(action);
 		btnHelp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -257,7 +271,7 @@ public class Menu extends JFrame {
 		});
 		btnHelp.setBackground(Color.YELLOW);
 		btnHelp.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
-		btnHelp.setBounds(102, 43, 93, 23);
+		btnHelp.setBounds(102, 43, 77, 23);
 		panel_4.add(btnHelp);
 		
 		JLabel lblNewLabel_6_2 = new JLabel("- N\u1EBFu b\u1EA1n g\u1EB7p l\u1ED7i ho\u1EB7c mu\u1ED1n li\u00EAn h\u1EC7, g\u00F3p \u00FD h\u00E3y");

@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
+import dao.DonMuaDao;
 import gui.Menu;
 import util.GetLocalTime;
 
@@ -22,8 +23,11 @@ import javax.swing.JOptionPane;
 
 import java.awt.TextField;
 import java.net.InetAddress;
+import java.net.MalformedURLException;
+import java.net.UnknownHostException;
 import java.rmi.AccessException;
 import java.rmi.AlreadyBoundException;
+import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -47,24 +51,6 @@ public class BoxChatServer extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public void loadKhoiTao() {
-		try {
-			Registry registry = LocateRegistry.createRegistry(1099);
-			taLog.append("- Starting serverSide chat...\n");
-			registry.rebind("chatServer", new ChatImpl()); //creates the remote object and registers it
-	        taLog.append("\n- ServerChat successfully started!\n");
-	        
-	        //IP
-	        IP=InetAddress.getLocalHost();
-	        txtIp.setText(IP.toString());
-	        String username = IP.getHostName();
-	        taConnected.append("- "+username+" (joined)");
-	        chatImpl = new ChatImpl();
-	        boolean a = chatImpl.login(username);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -80,8 +66,12 @@ public class BoxChatServer extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws NotBoundException 
+	 * @throws RemoteException 
+	 * @throws MalformedURLException 
+	 * @throws UnknownHostException 
 	 */
-	public BoxChatServer() {
+	public BoxChatServer() throws MalformedURLException, RemoteException, NotBoundException, UnknownHostException {
 		setTitle("VNSPORT > Menu > BoxChat tr\u1EF1c tuy\u1EBFn");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 854, 545);
@@ -142,6 +132,7 @@ public class BoxChatServer extends JFrame {
 						chatImpl.addMessage(message);
 						taContent.append(""+message.getUsername()+":  "+message.getMsg()+"\n");
 						taMessage.setText("");
+						
 					} catch (RemoteException e1) {
 						e1.printStackTrace();
 					}
@@ -210,6 +201,8 @@ public class BoxChatServer extends JFrame {
 		GetLocalTime getLocalTime = new GetLocalTime(lblDate, lblTime);
 		getLocalTime.showTime();
 		getLocalTime.showDate();
-		loadKhoiTao();
+		IP=InetAddress.getLocalHost();
+        txtIp.setText(IP.toString());
+        taConnected.append("- "+IP.getHostName()+" (joined)");
 	}
 }
