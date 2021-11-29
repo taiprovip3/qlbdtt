@@ -7,22 +7,35 @@ package entity;
 import java.util.List;
 
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 @Entity
 public class NhaCungCap {
+	private int stt;
 	@Id
 	private String maNhaCungCap;
+	@Column(columnDefinition = "nvarchar(255)")
 	private String tenDoiTac;
+	@Column(columnDefinition = "nvarchar(255)")
 	private String quocGia;
 	private String soDienThoai;
 	
-	@OneToMany(mappedBy = "nhaCungCap")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "nhaCungCap")
 	private List<SanPham> danhSachSanPham;
+
+	public int getStt() {
+		return stt;
+	}
+
+	public void setStt(int stt) {
+		this.stt = stt;
+	}
 
 	public String getMaNhaCungCap() {
 		return maNhaCungCap;
@@ -68,8 +81,9 @@ public class NhaCungCap {
 		super();
 	}
 
-	public NhaCungCap(String maNhaCungCap, String tenDoiTac, String quocGia, String soDienThoai) {
+	public NhaCungCap(int stt, String maNhaCungCap, String tenDoiTac, String quocGia, String soDienThoai) {
 		super();
+		this.stt = stt;
 		this.maNhaCungCap = maNhaCungCap;
 		this.tenDoiTac = tenDoiTac;
 		this.quocGia = quocGia;
@@ -103,9 +117,11 @@ public class NhaCungCap {
 
 	@Override
 	public String toString() {
-		return "NhaCungCap [maNhaCungCap=" + maNhaCungCap + ", tenDoiTac=" + tenDoiTac + ", quocGia=" + quocGia
-				+ ", soDienThoai=" + soDienThoai + ", danhSachSanPham=" + danhSachSanPham + "]";
+		return "NhaCungCap [stt=" + stt + ", maNhaCungCap=" + maNhaCungCap + ", tenDoiTac=" + tenDoiTac + ", quocGia="
+				+ quocGia + ", soDienThoai=" + soDienThoai + ", danhSachSanPham=" + danhSachSanPham + "]";
 	}
+
+	
 
 
 }

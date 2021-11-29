@@ -8,17 +8,21 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 @Entity
 public class HoaDon {
+	private int stt;
 	@Id
 	private String maHoaDon;
 	private Timestamp ngayLapHoaDon;
 	private float tongTien;
+	@Column(columnDefinition = "nvarchar(255)")
 	private String trangThai;
 	
 	@ManyToOne
@@ -29,9 +33,22 @@ public class HoaDon {
 	@JoinColumn(name="maNhanVien")
 	private NhanVien nhanVien;
 	
-	@OneToMany(mappedBy = "hoaDon")
-	private List<SanPham> danhSachSanPham;
+	@ManyToOne
+	@JoinColumn(name="maSanPham")
+	private SanPham sanPham;
 	
+	public int getStt() {
+		return stt;
+	}
+	public void setStt(int stt) {
+		this.stt = stt;
+	}
+	public SanPham getSanPham() {
+		return sanPham;
+	}
+	public void setSanPham(SanPham sanPham) {
+		this.sanPham = sanPham;
+	}
 	public String getMaHoaDon() {
 		return maHoaDon;
 	}
@@ -71,18 +88,15 @@ public class HoaDon {
 	public HoaDon() {
 		super();
 	}
-	public HoaDon(String maHoaDon, Timestamp ngayLapHoaDon, float tongTien, String trangThai) {
+	public HoaDon(int stt, String maHoaDon, Timestamp ngayLapHoaDon, float tongTien, String trangThai) {
 		super();
+		this.stt = stt;
 		this.maHoaDon = maHoaDon;
 		this.ngayLapHoaDon = ngayLapHoaDon;
 		this.tongTien = tongTien;
 		this.trangThai = trangThai;
 	}
-	@Override
-	public String toString() {
-		return "HoaDon [maHoaDon=" + maHoaDon + ", ngayLapHoaDon=" + ngayLapHoaDon + ", tongTien=" + tongTien
-				+ ", trangThai=" + trangThai + ", khachHang=" + khachHang + ", nhanVien=" + nhanVien + "]";
-	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -106,4 +120,14 @@ public class HoaDon {
 			return false;
 		return true;
 	}
+	@Override
+	public String toString() {
+		return "HoaDon [stt=" + stt + ", maHoaDon=" + maHoaDon + ", ngayLapHoaDon=" + ngayLapHoaDon + ", tongTien="
+				+ tongTien + ", trangThai=" + trangThai + ", khachHang=" + khachHang + ", nhanVien=" + nhanVien
+				+ ", sanPham=" + sanPham + "]";
+	}
+	
+	
+	
+	
 }

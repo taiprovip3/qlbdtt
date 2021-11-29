@@ -10,6 +10,10 @@ import java.awt.EventQueue;
 import javax.swing.*;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import dao.NhanVienDao;
+import entity.NhanVien;
+
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JLabel;
@@ -19,12 +23,14 @@ import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.BoxLayout;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class DangNhap extends JFrame {
 
 	private JPanel contentPane;
-	private JPasswordField passwordField;
-	private JPasswordField passwordField_1;
+	private JPasswordField txtPassword;
+	private JTextField txtUsername;
 
 	/**
 	 * Launch the application.
@@ -60,27 +66,44 @@ public class DangNhap extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		passwordField = new JPasswordField();
-		passwordField.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		passwordField.setBounds(20, 28, 214, 28);
-		panel.add(passwordField);
-		
 		JLabel lblNewLabel_3 = new JLabel("M\u1EADt kh\u1EA9u:");
 		lblNewLabel_3.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		lblNewLabel_3.setBounds(10, 60, 208, 28);
 		panel.add(lblNewLabel_3);
 		
-		passwordField_1 = new JPasswordField();
-		passwordField_1.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		passwordField_1.setBounds(20, 85, 214, 28);
-		panel.add(passwordField_1);
+		txtPassword = new JPasswordField();
+		txtPassword.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		txtPassword.setBounds(20, 85, 214, 28);
+		panel.add(txtPassword);
 		
-		JButton btnNewButton = new JButton("\u0110\u0103ng nh\u1EADp");
-		btnNewButton.setBackground(Color.WHITE);
-		btnNewButton.setForeground(new Color(60, 179, 113));
-		btnNewButton.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		btnNewButton.setBounds(10, 138, 141, 39);
-		panel.add(btnNewButton);
+		JButton btnLogin = new JButton("\u0110\u0103ng nh\u1EADp");
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(validData())
+				{
+					String username = txtUsername.getText();
+					String password = txtPassword.getText();
+					NhanVienDao nhanVienDao = new NhanVienDao();
+					NhanVien nhanVien = new NhanVien();
+					String pwSystem = nhanVienDao.getNhanVien(username);
+					if(pwSystem ==null)
+						JOptionPane.showMessageDialog(contentPane, "Username không tồn tại");
+					else
+						if(password.equals(pwSystem))
+						{
+							dispose();
+							Menu mn = new Menu();
+							mn.main(null);
+						}else
+							JOptionPane.showMessageDialog(contentPane, "Sai pass");
+				}
+			}
+		});
+		btnLogin.setBackground(Color.WHITE);
+		btnLogin.setForeground(new Color(60, 179, 113));
+		btnLogin.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		btnLogin.setBounds(10, 138, 141, 39);
+		panel.add(btnLogin);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(616, 175, 94, 74);
@@ -102,12 +125,18 @@ public class DangNhap extends JFrame {
 		lblNewLabel_3_1.setBounds(10, 0, 208, 28);
 		panel.add(lblNewLabel_3_1);
 		
-		JButton btnQunMtKhu = new JButton("Qu\u00EAn m\u1EADt kh\u1EA9u");
-		btnQunMtKhu.setForeground(Color.BLACK);
-		btnQunMtKhu.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		btnQunMtKhu.setBackground(Color.WHITE);
-		btnQunMtKhu.setBounds(170, 138, 160, 39);
-		panel.add(btnQunMtKhu);
+		JButton btnForgot = new JButton("Qu\u00EAn m\u1EADt kh\u1EA9u");
+		btnForgot.setForeground(Color.BLACK);
+		btnForgot.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		btnForgot.setBackground(Color.WHITE);
+		btnForgot.setBounds(170, 138, 160, 39);
+		panel.add(btnForgot);
+		
+		txtUsername = new JTextField();
+		txtUsername.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		txtUsername.setBounds(20, 23, 214, 26);
+		panel.add(txtUsername);
+		txtUsername.setColumns(10);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(0, 0, 710, 67);
@@ -126,5 +155,13 @@ public class DangNhap extends JFrame {
 		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 36));
 		lblNewLabel.setBounds(0, 0, 710, 33);
 		panel_1.add(lblNewLabel);
+	}
+	private boolean validData() {
+		if(txtUsername.getText().length() <= 0 || txtPassword.getText().length() <= 0)
+		{
+			JOptionPane.showMessageDialog(contentPane, "Không được bỏ trống 1 trong 2 field");
+			return false;
+		}
+		return true;
 	}
 }

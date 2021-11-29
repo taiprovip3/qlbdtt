@@ -6,14 +6,18 @@ package entity;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
 public class NhanVien {
+	private int stt;
 	@Id
 	private String maNhanVien;
+	@Column(columnDefinition = "nvarchar(255)")
 	private String tenNhanVien;
 	private String soDienThoai;
 	private String tenDangNhap;
@@ -21,8 +25,16 @@ public class NhanVien {
 	private int thoiGianSuDung;
 	private boolean quyenLenh;
 	
-	@OneToMany(mappedBy = "nhanVien")
+	@OneToMany(mappedBy = "nhanVien", fetch = FetchType.EAGER)
 	private List<HoaDon> danhSachHoaDon;
+
+	public int getStt() {
+		return stt;
+	}
+
+	public void setStt(int stt) {
+		this.stt = stt;
+	}
 
 	public String getMaNhanVien() {
 		return maNhanVien;
@@ -93,9 +105,10 @@ public class NhanVien {
 	}
 
 
-	public NhanVien(String maNhanVien, String tenNhanVien, String soDienThoai, String tenDangNhap, String matKhau,
+	public NhanVien(int stt, String maNhanVien, String tenNhanVien, String soDienThoai, String tenDangNhap, String matKhau,
 			int thoiGianSuDung, boolean quyenLenh) {
 		super();
+		this.stt = stt;
 		this.maNhanVien = maNhanVien;
 		this.tenNhanVien = tenNhanVien;
 		this.soDienThoai = soDienThoai;
@@ -105,12 +118,6 @@ public class NhanVien {
 		this.quyenLenh = quyenLenh;
 	}
 
-	@Override
-	public String toString() {
-		return "NhanVien [maNhanVien=" + maNhanVien + ", tenNhanVien=" + tenNhanVien + ", soDienThoai=" + soDienThoai
-				+ ", tenDangNhap=" + tenDangNhap + ", matKhau=" + matKhau + ", thoiGianSuDung=" + thoiGianSuDung
-				+ ", quyenLenh=" + quyenLenh + ", danhSachHoaDon=" + danhSachHoaDon + "]";
-	}
 
 	@Override
 	public int hashCode() {
@@ -135,6 +142,13 @@ public class NhanVien {
 		} else if (!maNhanVien.equals(other.maNhanVien))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "NhanVien [stt=" + stt + ", maNhanVien=" + maNhanVien + ", tenNhanVien=" + tenNhanVien + ", soDienThoai="
+				+ soDienThoai + ", tenDangNhap=" + tenDangNhap + ", matKhau=" + matKhau + ", thoiGianSuDung="
+				+ thoiGianSuDung + ", quyenLenh=" + quyenLenh + ", danhSachHoaDon=" + danhSachHoaDon + "]";
 	}
 	
 }

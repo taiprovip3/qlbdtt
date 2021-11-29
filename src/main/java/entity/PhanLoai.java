@@ -6,19 +6,31 @@ package entity;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
 public class PhanLoai {
+	private int stt;
 	@Id
 	private String maPhanLoai;
+	@Column(columnDefinition = "nvarchar(255)")
 	private String tenPhanLoai;
+	@Column(columnDefinition = "nvarchar(255)")
 	private String moTa;
 	
 	@OneToMany (mappedBy = "phanLoai")
 	private List<SanPham> danhSachSanPham;
+
+	public int getStt() {
+		return stt;
+	}
+
+	public void setStt(int stt) {
+		this.stt = stt;
+	}
 
 	public String getMaPhanLoai() {
 		return maPhanLoai;
@@ -56,8 +68,9 @@ public class PhanLoai {
 		super();
 	}
 
-	public PhanLoai(String maPhanLoai, String tenPhanLoai, String moTa) {
+	public PhanLoai(int stt, String maPhanLoai, String tenPhanLoai, String moTa) {
 		super();
+		this.stt = stt;
 		this.maPhanLoai = maPhanLoai;
 		this.tenPhanLoai = tenPhanLoai;
 		this.moTa = moTa;
@@ -90,9 +103,11 @@ public class PhanLoai {
 
 	@Override
 	public String toString() {
-		return "PhanLoai [maPhanLoai=" + maPhanLoai + ", tenPhanLoai=" + tenPhanLoai + ", moTa=" + moTa
+		return "PhanLoai [stt=" + stt + ", maPhanLoai=" + maPhanLoai + ", tenPhanLoai=" + tenPhanLoai + ", moTa=" + moTa
 				+ ", danhSachSanPham=" + danhSachSanPham + "]";
 	}
+
+	
 	
 	
 }

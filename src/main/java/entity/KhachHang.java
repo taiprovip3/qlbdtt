@@ -6,6 +6,7 @@ package entity;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -15,15 +16,25 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class KhachHang {
+	private int stt;
 	@Id
 	private String maKhachHang;
+	@Column(columnDefinition = "nvarchar(255)")
 	private String hoTen;
 	private String diaChi;
 	private String soDienThoai;
 	private String loaiKhachHang;
 	
-	@OneToMany(mappedBy = "khachHang")
+	@OneToMany(mappedBy = "khachHang", fetch = FetchType.EAGER)
 	private List<HoaDon> danhSachHoaDon;
+
+	public int getStt() {
+		return stt;
+	}
+
+	public void setStt(int stt) {
+		this.stt = stt;
+	}
 
 	public String getMaKhachHang() {
 		return maKhachHang;
@@ -79,8 +90,9 @@ public class KhachHang {
 
 	
 
-	public KhachHang(String maKhachHang, String hoTen, String diaChi, String soDienThoai, String loaiKhachHang) {
+	public KhachHang(int stt, String maKhachHang, String hoTen, String diaChi, String soDienThoai, String loaiKhachHang) {
 		super();
+		this.stt = stt;
 		this.maKhachHang = maKhachHang;
 		this.hoTen = hoTen;
 		this.diaChi = diaChi;
@@ -88,11 +100,6 @@ public class KhachHang {
 		this.loaiKhachHang = loaiKhachHang;
 	}
 
-	@Override
-	public String toString() {
-		return "KhachHang [maKhachHang=" + maKhachHang + ", hoTen=" + hoTen + ", diaChi=" + diaChi + ", soDienThoai="
-				+ soDienThoai + ", loaiKhachHang=" + loaiKhachHang + ", danhSachHoaDon=" + danhSachHoaDon + "]";
-	}
 
 	@Override
 	public int hashCode() {
@@ -117,6 +124,13 @@ public class KhachHang {
 		} else if (!maKhachHang.equals(other.maKhachHang))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "KhachHang [stt=" + stt + ", maKhachHang=" + maKhachHang + ", hoTen=" + hoTen + ", diaChi=" + diaChi
+				+ ", soDienThoai=" + soDienThoai + ", loaiKhachHang=" + loaiKhachHang + ", danhSachHoaDon="
+				+ danhSachHoaDon + "]";
 	}
 	
 }

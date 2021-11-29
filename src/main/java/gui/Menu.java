@@ -13,6 +13,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.border.TitledBorder;
 
+import chatServer.BoxChatServer;
 import util.GetLocalTime;
 
 import java.awt.Color;
@@ -28,6 +29,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.Action;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.JSeparator;
@@ -165,6 +169,13 @@ public class Menu extends JFrame {
 		panel_1.add(lblNewLabel_2_4);
 		
 		JButton btnBoxChatOnline = new JButton("");
+		btnBoxChatOnline.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BoxChatServer boxChatServer = new BoxChatServer();
+				boxChatServer.main(null);;
+				dispose();
+			}
+		});
 		btnBoxChatOnline.setIcon(new ImageIcon("F:\\Hoc ki 3\\Java Phan Tan\\Project-JavaPT\\qlbdtt_artifact\\data\\icon\\chat.png"));
 		btnBoxChatOnline.setBounds(598, 21, 99, 66);
 		panel_1.add(btnBoxChatOnline);

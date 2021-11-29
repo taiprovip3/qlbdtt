@@ -31,6 +31,8 @@ import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ThongKe extends JFrame {
 
@@ -112,6 +114,13 @@ public class ThongKe extends JFrame {
 		panel_1.add(comboBox);
 		
 		JButton btnQuayLi = new JButton("Quay l\u1EA1i:");
+		btnQuayLi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Menu mnMenu = new Menu();
+				mnMenu.main(null);
+				dispose();
+			}
+		});
 		btnQuayLi.setBounds(671, 104, 146, 42);
 		panel_1.add(btnQuayLi);
 		btnQuayLi.setForeground(new Color(0, 128, 128));

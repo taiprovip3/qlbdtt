@@ -11,23 +11,34 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
+import org.hibernate.type.StringNVarcharType;
 
 @Entity
 public class SanPham {
+	private int stt;
 	@Id
 	private String maSanPham;
+	@Column(columnDefinition = "nvarchar(255)")
 	private String tenSanPham;
 	private int soLuongTon;
 	private float donGia;
 	
-	@ElementCollection
-	@CollectionTable(name = "DanhSachMonTheThao", joinColumns = @JoinColumn(name="maSanPham"))
-	@Column(nullable = false)
-	private List<String> chuyenTheThao;
+//	@ElementCollection(fetch = FetchType.EAGER)
+//	@CollectionTable(name = "DanhSachMonTheThao", joinColumns = @JoinColumn(name="maSanPham"))
+//	@Column(columnDefinition = "nvarchar(255)", nullable = false)
+//	private List<String> chuyenTheThao;
+	@Column(columnDefinition = "nvarchar(255)")
 	private String moTa;
 	@ManyToOne
 	@JoinColumn(name="maNhaCungCap")
@@ -35,12 +46,14 @@ public class SanPham {
 	@ManyToOne
 	@JoinColumn(name="maPhanLoai")
 	private PhanLoai phanLoai;
-	@ManyToOne
-	@JoinColumn(name="maHoaDon")
-	private HoaDon hoaDon;
-	
 
 
+	public int getStt() {
+		return stt;
+	}
+	public void setStt(int stt) {
+		this.stt = stt;
+	}
 	public String getMaSanPham() {
 		return maSanPham;
 	}
@@ -65,12 +78,12 @@ public class SanPham {
 	public void setDonGia(float donGia) {
 		this.donGia = donGia;
 	}
-	public List<String> getChuyenTheThao() {
-		return chuyenTheThao;
-	}
-	public void setChuyenTheThao(List<String> chuyenTheThao) {
-		this.chuyenTheThao = chuyenTheThao;
-	}
+//	public List<String> getChuyenTheThao() {
+//		return chuyenTheThao;
+//	}
+//	public void setChuyenTheThao(List<String> chuyenTheThao) {
+//		this.chuyenTheThao = chuyenTheThao;
+//	}
 	public String getMoTa() {
 		return moTa;
 	}
@@ -89,24 +102,22 @@ public class SanPham {
 	public void setPhanLoai(PhanLoai phanLoai) {
 		this.phanLoai = phanLoai;
 	}
-	public HoaDon getHoaDon() {
-		return hoaDon;
-	}
-	public void setHoaDon(HoaDon hoaDon) {
-		this.hoaDon = hoaDon;
-	}
+
+
 	public SanPham() {
 		super();
 	}
-	public SanPham(String maSanPham, String tenSanPham, int soLuongTon, float donGia, List<String> chuyenTheThao,
-			String moTa) {
+	
+	public SanPham(int stt, String maSanPham, String tenSanPham, int soLuongTon, float donGia,
+			List<String> chuyenTheThao, String moTa) {
 		super();
+		this.stt = stt;
 		this.maSanPham = maSanPham;
 		this.tenSanPham = tenSanPham;
 		this.soLuongTon = soLuongTon;
 		this.donGia = donGia;
-		this.chuyenTheThao = chuyenTheThao;
-		this.moTa = moTa;
+//		this.chuyenTheThao = chuyenTheThao;
+//		this.moTa = moTa;
 	}
 	@Override
 	public int hashCode() {
@@ -133,9 +144,9 @@ public class SanPham {
 	}
 	@Override
 	public String toString() {
-		return "SanPham [maSanPham=" + maSanPham + ", tenSanPham=" + tenSanPham + ", soLuongTon=" + soLuongTon
-				+ ", donGia=" + donGia + ", chuyenTheThao=" + chuyenTheThao + ", moTa=" + moTa + ", nhaCungCap="
-				+ nhaCungCap + ", phanLoai=" + phanLoai + "]";
+		return "SanPham [stt=" + stt + ", maSanPham=" + maSanPham + ", tenSanPham=" + tenSanPham + ", soLuongTon="
+				+ soLuongTon + ", donGia=" + donGia + ", moTa=" + moTa + ", nhaCungCap=" + nhaCungCap + ", phanLoai="
+				+ phanLoai + "]";
 	}
 	
 }

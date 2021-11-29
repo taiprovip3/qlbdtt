@@ -13,6 +13,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.NativeQuery;
 
+import dao.SanPhamDao;
+import entity.HoaDon;
 import entity.NhaCungCap;
 import entity.PhanLoai;
 import entity.SanPham;
@@ -51,7 +53,8 @@ public class QuanLyKhoHang_them extends JFrame {
 	private JLabel lblMaSanPham;
 	private final JTextPane tpOutputMaSP;
 	private JTextField txtDes;
-	private JComboBox<String> cbSup, cbCate; 
+	private JComboBox<String> cbSup, cbCate;
+	private SanPhamDao sanPhamDao;
 
 	/**
 	 * Launch the application.
@@ -64,6 +67,7 @@ public class QuanLyKhoHang_them extends JFrame {
 					frame.setVisible(true);
 					frame.setLocationRelativeTo(null);
 					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -75,9 +79,10 @@ public class QuanLyKhoHang_them extends JFrame {
 	 * Create the frame.
 	 */
 	public QuanLyKhoHang_them() {
+		sanPhamDao = new SanPhamDao();
 		setTitle("VNSPORT > menu > Qu\u1EA3n l\u00FD kho h\u00E0ng > th\u00EAm m\u1EDBi");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 778, 534);
+		setBounds(100, 100, 778, 496);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -184,34 +189,28 @@ public class QuanLyKhoHang_them extends JFrame {
 		lblNewLabel_2.setBounds(113, 190, 252, 19);
 		contentPane.add(lblNewLabel_2);
 		
-		JLabel lblNewLabel_1_3 = new JLabel("Môn chuyên Dụng:");
-		lblNewLabel_1_3.setForeground(Color.BLUE);
-		lblNewLabel_1_3.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		lblNewLabel_1_3.setBounds(10, 236, 139, 20);
-		contentPane.add(lblNewLabel_1_3);
-		
 		JLabel lblNewLabel_1_4 = new JLabel("Ch\u1ECDn nh\u00E0 cung c\u1EA5p:");
 		lblNewLabel_1_4.setForeground(Color.BLUE);
 		lblNewLabel_1_4.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		lblNewLabel_1_4.setBounds(10, 327, 355, 20);
+		lblNewLabel_1_4.setBounds(9, 288, 355, 20);
 		contentPane.add(lblNewLabel_1_4);
 		
 		final JComboBox cbSup = new JComboBox();
 		cbSup.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		cbSup.setModel(new DefaultComboBoxModel(new String[] {"NCC1", "NCC2", "NCC3", "NCC4", "NCC5", "NCC6", "NCC7", "NCC8", "NCC9", "NCC10"}));
-		cbSup.setBounds(10, 345, 355, 27);
+		cbSup.setBounds(9, 306, 355, 27);
 		contentPane.add(cbSup);
 		
 		JLabel lblNewLabel_1_4_1 = new JLabel("Ph\u00E2n lo\u1EA1i cho SP:");
 		lblNewLabel_1_4_1.setForeground(Color.BLUE);
 		lblNewLabel_1_4_1.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		lblNewLabel_1_4_1.setBounds(10, 372, 355, 20);
+		lblNewLabel_1_4_1.setBounds(9, 333, 355, 20);
 		contentPane.add(lblNewLabel_1_4_1);
 		
 		final JComboBox cbCate = new JComboBox();
 		cbCate.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		cbCate.setModel(new DefaultComboBoxModel(new String[] {"Bán lẽ", "Bán sỉ", "Hàng tặng", "Đặc biệt", "For sale", "Dễ vỡ", "Nguy hiểm", "Thịnh hành", "Điện tử", "Gia công"}));
-		cbCate.setBounds(10, 389, 355, 27);
+		cbCate.setBounds(9, 350, 355, 27);
 		contentPane.add(cbCate);
 		
 		JButton btnNewButton_1 = new JButton("Th\u00EAm s\u1EA3n ph\u1EA9m");
@@ -220,34 +219,53 @@ public class QuanLyKhoHang_them extends JFrame {
 //**THÊM				
 				if(kiemTraNhapLieu())
 				{
-					System.out.println("Mã SP ok");
-					SessionFactory sessionFactory = HibernateUtil.getInstance().getSessionFactory();
-					Session session = sessionFactory.getCurrentSession();
-					
-					Transaction tr = session.getTransaction(); 
+//					SessionFactory sessionFactory = HibernateUtil.getInstance().getSessionFactory();
+//					Session session = sessionFactory.getCurrentSession();
+//					Transaction tr = session.getTransaction();
 					try {
-						tr.begin();
-							String maSP = tpOutputMaSP.getText();
-							NhaCungCap getNCC = new NhaCungCap();
-							getNCC = session.createNativeQuery("SELECT * FROM NhaCungCap WHERE  maSanPham",NhaCungCap.class).getSingleResult();
-							System.out.println(getNCC);
-							
-							
-//							String tenSP = txtName.getText();
-//							int soLuong = Integer.parseInt(txtAmount.getText());
-//							Float donGia = Float.parseFloat(txtPrice.getText());
-//							List<String> lsTheThao = Arrays.asList("Bóng đá", "Bóng chuyền");
-//							String moTa = txtDes.getText();
-//							String maNcc = cbSup.getSelectedItem().toString();
-//							String maPl = cbCate.getSelectedItem().toString();
-//							NhaCungCap ncc = new NhaCungCap(maNcc, "ten doi tac", "quoc gia", "0338188506", Arrays.asList("Gậy bóng chày", "Gậy cầu lông", "Banh tenis", "Bóng da", "Đồ bơm bóng"));
-//							PhanLoai pl = new PhanLoai(maPl, "ten Phan Loai", "mo ta");
-//							SanPham sp = new SanPham(maSP, tenSP, soLuong, donGia, lsTheThao, moTa, ncc, pl);
-//							session.save(sp);
-						tr.commit();
+//						tr.begin();
+							String maSanPham = tpOutputMaSP.getText();
+							Float donGia = Float.parseFloat(txtPrice.getText());
+							String moTa = txtDes.getText();
+							int soLuongTon = Integer.parseInt(txtAmount.getText());
+							String tenSanPham = txtName.getText();
+							String maNhaCungCap = cbSup.getSelectedItem().toString();
+							String tenPhanLoai = cbCate.getSelectedItem().toString();
+							boolean a =sanPhamDao.themSanPham(maSanPham, donGia, moTa, soLuongTon, tenSanPham, maNhaCungCap, tenPhanLoai);
+							if(a)
+							{
+								int cf = JOptionPane.showConfirmDialog(contentPane, "Thêm thành công, vui lòng tải lại bảng!");
+								if(cf == JOptionPane.YES_OPTION)
+								{
+									QuanLyKhoHang.taiLai();
+									dispose();
+								}
+							}
+							else
+								JOptionPane.showMessageDialog(contentPane, "Lỗi");
+//							SanPham sanPham = new SanPham();
+//							NhaCungCap nhaCungCap = new NhaCungCap();
+//							PhanLoai phanLoai = new PhanLoai();
+//							nhaCungCap = session.createNativeQuery("SELECT * FROM NhaCungCap WHERE maNhaCungCap = '"+maNhaCungCap+"'",NhaCungCap.class).getSingleResult();
+//							phanLoai = session.createNativeQuery("select * from PhanLoai where tenPhanLoai = N'"+tenPhanLoai+"'", PhanLoai.class).getSingleResult();
+//							
+//							sanPham.setMaSanPham(maSanPham);
+//							sanPham.setDonGia(donGia);
+//							sanPham.setMoTa(moTa);
+//							sanPham.setSoLuongTon(soLuongTon);
+//							sanPham.setStt(sanPhamDao.loadStt());
+//							sanPham.setTenSanPham(tenSanPham);
+//							sanPham.setHoaDon(null);
+//							sanPham.setNhaCungCap(nhaCungCap);
+//							sanPham.setPhanLoai(phanLoai);
+//							
+//							session.save(sanPham);
+//						tr.commit();
 					} catch (Exception ex) {
 						ex.printStackTrace();
+//						tr.rollback();
 					}
+//					session.close();
 				}else 
 					System.out.println("Dữ liệu nhập vào có chỗ sai định dạng hoặc bỏ trống");
 			}
@@ -255,11 +273,11 @@ public class QuanLyKhoHang_them extends JFrame {
 		btnNewButton_1.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		btnNewButton_1.setBackground(new Color(0, 128, 128));
 		btnNewButton_1.setForeground(Color.GREEN);
-		btnNewButton_1.setBounds(10, 440, 156, 44);
+		btnNewButton_1.setBounds(12, 404, 156, 44);
 		contentPane.add(btnNewButton_1);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(0, 427, 655, 12);
+		separator.setBounds(2, 391, 655, 12);
 		contentPane.add(separator);
 		
 		JButton btnNewButton_1_1 = new JButton("X\u00F3a r\u1ED7ng field");
@@ -279,34 +297,34 @@ public class QuanLyKhoHang_them extends JFrame {
 		btnNewButton_1_1.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		btnNewButton_1_1.setForeground(Color.GREEN);
 		btnNewButton_1_1.setBackground(new Color(0, 128, 128));
-		btnNewButton_1_1.setBounds(176, 440, 156, 44);
+		btnNewButton_1_1.setBounds(178, 404, 156, 44);
 		contentPane.add(btnNewButton_1_1);
 		
 		JButton btnNewButton_1_2 = new JButton("\u0110\u00F3ng");
 		btnNewButton_1_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				//Tải lại table QLKHmenu
 			}
 		});
 		btnNewButton_1_2.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		btnNewButton_1_2.setForeground(new Color(255, 255, 255));
 		btnNewButton_1_2.setBackground(new Color(255, 0, 0));
-		btnNewButton_1_2.setBounds(665, 468, 97, 27);
+		btnNewButton_1_2.setBounds(667, 432, 97, 27);
 		contentPane.add(btnNewButton_1_2);
 		
 		JLabel lblDate = new JLabel("New label");
 		lblDate.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		lblDate.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDate.setBounds(665, 440, 97, 20);
+		lblDate.setBounds(667, 404, 97, 20);
 		contentPane.add(lblDate);
 		
 		JLabel lblTime = new JLabel("New label");
 		lblTime.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		lblTime.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTime.setBounds(665, 419, 97, 20);
+		lblTime.setBounds(667, 383, 97, 20);
 		contentPane.add(lblTime);
 		//code tay
+		
 		GetLocalTime getLocalTime = new GetLocalTime(lblDate, lblTime);
 		getLocalTime.showTime();
 		getLocalTime.showDate();
@@ -317,24 +335,19 @@ public class QuanLyKhoHang_them extends JFrame {
 		lblMaSanPham.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		lblMaSanPham.setBounds(239, 63, 65, 23);
 		panel.add(lblMaSanPham);
+		lblMaSanPham.setText("SP"+sanPhamDao.loadStt());
 		tpOutputMaSP.setText(lblMaSanPham.getText());
 		
 		JLabel lblNewLabel_1_3_1 = new JLabel("Thêm mô tả:");
 		lblNewLabel_1_3_1.setForeground(Color.BLUE);
 		lblNewLabel_1_3_1.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		lblNewLabel_1_3_1.setBounds(10, 278, 93, 20);
+		lblNewLabel_1_3_1.setBounds(9, 239, 93, 20);
 		contentPane.add(lblNewLabel_1_3_1);
 		
 		txtDes = new JTextField();
 		txtDes.setColumns(10);
-		txtDes.setBounds(10, 296, 355, 27);
+		txtDes.setBounds(9, 257, 355, 27);
 		contentPane.add(txtDes);
-		
-		JComboBox cbChuyenMon = new JComboBox();
-		cbChuyenMon.setModel(new DefaultComboBoxModel(new String[] {"Bóng đá", "Bóng rỗ", "Bóng chày", "Quần vợt", "Bóng bàn", "Bóng chuyền", "Cầu lông", "Bóng bầu dục", "Golf", "Không xác định"}));
-		cbChuyenMon.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		cbChuyenMon.setBounds(10, 255, 355, 27);
-		contentPane.add(cbChuyenMon);
 	}
 	private boolean kiemTraNhapLieu() {
 		String maSP = tpOutputMaSP.getText();
